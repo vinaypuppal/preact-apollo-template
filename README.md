@@ -9,7 +9,7 @@
 
 ``` bash
 npm install -g preact-cli
-preact create preact-apollo-template my-project
+preact create vinaypuppal/preact-apollo-template my-project
 cd my-project
 npm install
 npm run dev
