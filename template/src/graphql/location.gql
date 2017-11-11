@@ -1,0 +1,10 @@
+query {
+  location(place: "sydney") {
+    country
+    mapLink
+    weather {
+      summary
+      temperature
+    }
+  }
+}

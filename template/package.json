@@ -1,0 +1,60 @@
+{
+  "private": true,
+  "name": "{{name}}",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "analyze":
+      "preact build --json --no-prerender && mv stats.json build && webpack-bundle-analyzer ./build/stats.json",
+    "build": "preact build",
+    "deploy": "yarn build && netlify deploy -p build",
+    "dev": "preact watch",
+    "lint": "eslint src && stylelint 'src/**/*.css'",
+    "serve": "yarn build && preact serve",
+    "start": "if-env NODE_ENV=production && yarn serve || yarn dev",
+    "test": "yarn lint",
+    "precommit": "lint-staged"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": ["prettier", "prettier/react", "eslint-config-synacor"]
+  },
+  "eslintIgnore": ["build/*"],
+  "stylelint": {
+    "extends": "stylelint-config-recommended"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote --print-width=100 --trailing-comma=all",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.css": ["stylelint --fix", "git add"]
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.2",
+    "eslint": "^4.5.0",
+    "eslint-config-prettier": "^2.7.0",
+    "eslint-config-synacor": "^2.0.2",
+    "husky": "^0.14.3",
+    "if-env": "^1.0.0",
+    "lint-staged": "^5.0.0",
+    "netlify-cli": "^1.2.2",
+    "preact-cli": "^2.0.0",
+    "preact-cli-plugin-graphql": "^1.0.1",
+    "preact-cli-plugin-netlify": "^1.0.1",
+    "prettier": "^1.8.2",
+    "stylelint": "^8.2.0",
+    "stylelint-config-recommended": "^1.0.0",
+    "graphql-tag": "^2.5.0",
+    "webpack-bundle-analyzer": "^2.9.1"
+  },
+  "dependencies": {
+    "apollo-client-preset": "^1.0.2",
+    "graphql": "^0.11.7",
+    "preact": "^8.2.1",
+    "preact-compat": "^3.17.0",
+    "preact-router": "^2.5.5",
+    "react-apollo": "^2.0.1"
+  }
+}
