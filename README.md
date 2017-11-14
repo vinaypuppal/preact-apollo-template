@@ -2,7 +2,7 @@
 
 ## Documentation
 
-- This is the apollo-graphql template for [preact-cli](https://github.com/developit/preact-cli).
+- This is the apollo-graphql template for [preact-cli](https://github.com/developit/preact-cli) with [emotion](https://emotion.sh) instead of css-modules.
 - [For Preact](https://preactjs.com/): General information about how to work with Preact, not specific to this template
 
 ## Usage

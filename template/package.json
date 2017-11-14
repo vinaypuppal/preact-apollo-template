@@ -4,38 +4,47 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "analyze":
-      "preact build --json --no-prerender && mv stats.json build && webpack-bundle-analyzer ./build/stats.json",
-    "build": "preact build",
-    "deploy": "yarn build && netlify deploy -p build",
+    "preanalyze": "yarn build",
+    "analyze": "webpack-bundle-analyzer ./build/stats.json",
+    "build": "preact build --json",
+    "postbuild": "mv stats.json build && del-cli './src/**/*.css'",
+    "predeploy": "yarn build",
+    "deploy": "netlify deploy -p build",
     "dev": "preact watch",
-    "lint": "eslint src && stylelint 'src/**/*.css'",
-    "serve": "yarn build && preact serve",
+    "lint": "xo",
+    "lint:fix": "eslint src --fix",
+    "preserve": "yarn build",
+    "serve": "preact serve",
     "start": "if-env NODE_ENV=production && yarn serve || yarn dev",
     "test": "yarn lint",
     "precommit": "lint-staged"
   },
-  "eslintConfig": {
+  "xo": {
     "parser": "babel-eslint",
-    "extends": ["prettier", "prettier/react", "eslint-config-synacor"]
-  },
-  "eslintIgnore": ["build/*"],
-  "stylelint": {
-    "extends": "stylelint-config-recommended"
+    "extends": ["prettier", "prettier/react", "xo-preact", "plugin:react/recommended"],
+    "env": ["browser", "node"],
+    "rules": {
+      "linebreak-style": 0,
+      "react/display-name": 0,
+      "react/prop-types": 0,
+      "react/jsx-filename-extension": 0,
+      "react/jsx-handler-names": 0,
+      "react/jsx-space-before-closing": 0
+    },
+    "space": 2,
+    "ignores": ["build/*"]
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write --single-quote --print-width=100 --trailing-comma=all",
-      "eslint --fix",
-      "git add"
-    ],
-    "*.css": ["stylelint --fix", "git add"]
+    "*.js": ["prettier --write --single-quote --print-width=100 --trailing-comma=all", "xo", "git add"]
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
-    "eslint": "^4.5.0",
+    "babel-plugin-emotion": "^8.0.10",
+    "del-cli": "^1.1.0",
     "eslint-config-prettier": "^2.7.0",
-    "eslint-config-synacor": "^2.0.2",
+    "eslint-config-xo-preact": "^1.0.0",
+    "eslint-plugin-react": "^7.4.0",
+    "graphql-tag": "^2.5.0",
     "husky": "^0.14.3",
     "if-env": "^1.0.0",
     "lint-staged": "^5.0.0",
@@ -44,17 +53,21 @@
     "preact-cli-plugin-graphql": "^1.0.1",
     "preact-cli-plugin-netlify": "^1.0.1",
     "prettier": "^1.8.2",
-    "stylelint": "^8.2.0",
-    "stylelint-config-recommended": "^1.0.0",
-    "graphql-tag": "^2.5.0",
-    "webpack-bundle-analyzer": "^2.9.1"
+    "typescript": "^2.6.1",
+    "typescript-styled-plugin": "^0.2.0",
+    "webpack-bundle-analyzer": "^2.9.1",
+    "xo": "^0.18.2"
   },
   "dependencies": {
-    "apollo-client-preset": "^1.0.2",
+    "apollo-cache-inmemory": "^1.1.0",
+    "apollo-client": "^2.0.2",
+    "apollo-link-http": "^1.1.0",
+    "emotion": "^8.0.10",
     "graphql": "^0.11.7",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
     "preact-router": "^2.5.5",
-    "react-apollo": "^2.0.1"
+    "react-apollo": "^2.0.1",
+    "react-emotion": "^8.0.10"
   }
 }

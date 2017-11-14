@@ -1,5 +1,5 @@
-query {
-  location(place: "sydney") {
+query Location($place: String!) {
+  location(place: $place) {
     country
     mapLink
     weather {

@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { graphql } from 'react-apollo';
 
-import style from './style';
 import LOCATION_QUERY from '../../graphql/location.gql';
+import { PageContainer } from './index.styles';
 
 const weatherCard = data => (
   <div className="map">
@@ -14,12 +14,6 @@ const weatherCard = data => (
   </div>
 );
 
-export default graphql(LOCATION_QUERY)(props => (
-  <div className={style.home}>
-    <div className="container">
-      <div className="content">
-        {props.data.loading ? <p>Loading...</p> : weatherCard(props.data.location)}
-      </div>
-    </div>
-  </div>
+export default graphql(LOCATION_QUERY, { options: { variables: { place: 'sydney' } } })(props => (
+  <PageContainer>{props.data.loading ? <p>Loading...</p> : weatherCard(props.data.location)}</PageContainer>
 ));

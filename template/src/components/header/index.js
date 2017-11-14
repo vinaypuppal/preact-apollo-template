@@ -1,22 +1,21 @@
 import { h } from 'preact';
-import { Link } from 'preact-router/match';
-import style from './style';
+import { Header, Title, NavLink, Nav } from './index.styles';
 
-const Header = () => (
-	<header class={style.header}>
-		<h1>Preact App</h1>
-		<nav>
-			<Link activeClassName={style.active} href="/">
-				Home
-			</Link>
-			<Link activeClassName={style.active} href="/profile">
-				Me
-			</Link>
-			<Link activeClassName={style.active} href="/profile/john">
-				John
-			</Link>
-		</nav>
-	</header>
+const HeaderBar = () => (
+  <Header>
+    <Title>Preact App</Title>
+    <Nav>
+      <NavLink activeClassName="active" href="/">
+        Home
+      </NavLink>
+      <NavLink activeClassName="active" href="/profile">
+        Me
+      </NavLink>
+      <NavLink activeClassName="active" href="/profile/john">
+        John
+      </NavLink>
+    </Nav>
+  </Header>
 );
 
-export default Header;
+export default HeaderBar;
